@@ -1,3 +1,4 @@
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.generics import UpdateAPIView, DestroyAPIView
@@ -8,17 +9,42 @@ from .serializers import ProductSerializer
 from rest_framework.response import Response
 from rest_framework import status
 
+
+class ProductPagination(PageNumberPagination):
+    page_size = 10
+
 class ProductLCAPI(ListCreateAPIView):
 
     # 상품을 조회
     queryset = Products.objects.all().order_by('-created_at')
     serializer_class = ProductSerializer
+    pagination_class = ProductPagination
 
     def get_permissions(self):
         #GET 요청은 인증 X, POST 요청 인증 O.
         if self.request.method in ['POST']:
             return [IsAuthenticated()]
         return [AllowAny()]
+
+    # 페이지네이션 및 필터링(검색기능)
+    # 조건 : 상품 목록 조회 시 적용됩니다.
+    # 구현 : 제목, 유저명, 내용으로 필터링이 가능하며, 결과는 페이지네이션으로 관리
+
+    def get_queryset(self):
+
+        queryset = super().get_queryset()
+        title = self.request.query_params.get('title', None)
+        author_username = self.request.query_params.get('author_username', None)
+        content = self.request.query_params.get('content', None)
+
+        if title:
+            queryset = queryset.filter(title__icontains=title)
+        if author_username:
+            queryset = queryset.filter(author__username__icontains=author_username)
+        if content:
+            queryset = queryset.filter(content__icontains=content)
+
+        return queryset
 
     def perform_create(self, serializer):
         # 새 상품을 생성할 때 게시 데이터를 저장
