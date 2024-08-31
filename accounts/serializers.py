@@ -9,7 +9,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
 
     #이메일 중복 방지
     def validate_email(self, value):
-        # Optional email duplicate check; add a condition to enable/disable this
         if CustomUser.objects.filter(email=value).exists():
             raise serializers.ValidationError("이 이메일은 이미 사용 중입니다.")
         return value
