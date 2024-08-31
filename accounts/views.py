@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from .serializers import UserRegistrationSerializer
 from django.contrib.auth.hashers import check_password
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 User = get_user_model()
@@ -70,3 +71,34 @@ class LoginAPI(APIView):
 
         # 응답 반환
         return response
+
+
+class ProfileAPI(APIView):
+
+    # 프로필 조회
+    # Endpoint : /api/accounts/<str:username>
+    # Method : GET
+    # 조건 : 로그인 상태 필요.
+    # 검증 : 로그인 한 사용자만 프로필 조회 가능
+    # 구현 : 로그인한 사용자의 정보를 JSON 형태로 반환.
+
+    # 인증된 사용자만 접근 가능
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, username):
+
+        # 사용자 검색
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+
+            # 사용자가 존재하지 않으면 404 에러 반환
+            return Response({"error": "사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+
+        # 요청한 사용자와 찾은 사용자가 다르면 403 에러 반환
+        if request.user != user:
+            return Response({"error": "권한이 없습니다."}, status=status.HTTP_403_FORBIDDEN)
+
+        # 사용자 정보를 직렬화하여 반환
+        serializer = UserRegistrationSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
