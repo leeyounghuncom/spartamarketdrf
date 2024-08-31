@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterAPI, LoginAPI, ProfileAPI, LogoutAPI, ChangePasswordAPI
+from .views import RegisterAPI, LoginAPI, ProfileAPI, LogoutAPI, ChangePasswordAPI, FollowAPI
 
 #로그아웃을 프로필 밑에다가 할경우에는 POST 주소를 찾지 못한다.
 #
@@ -12,5 +12,6 @@ urlpatterns = [
     path('password/', ChangePasswordAPI.as_view()), #패스워드변경
 
     path('<str:username>/', ProfileAPI.as_view()), #프로필 조회, 본인 정보 수정
+    path('<str:username>/follow/', FollowAPI.as_view()), #팔로우 팔로워
 
 ]

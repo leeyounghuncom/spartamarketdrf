@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 class UserRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = ['username', 'password', 'email', 'first_name', 'nickname', 'birthday', 'gender', 'bio']
+        fields = ['username', 'password', 'email', 'first_name', 'nickname', 'birthday', 'gender', 'bio', '']
 
     #이메일 중복 방지
     def validate_email(self, value):

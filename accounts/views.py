@@ -1,5 +1,5 @@
 from rest_framework.decorators import permission_classes
-
+from django.shortcuts import get_object_or_404
 from .models import CustomUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -14,6 +14,8 @@ from rest_framework.exceptions import ValidationError
 # https://medium.com/@abdullah.bakir.204/boosting-your-django-api-performance-with-drf-decorators-94087b347333
 
 User = get_user_model()
+
+
 class RegisterAPI(APIView):
 
     # 회원가입
@@ -26,9 +28,9 @@ class RegisterAPI(APIView):
         serializer = UserRegistrationSerializer(data=request.data)  # 요청 데이터로 Serializer 생성
         if serializer.is_valid():  # 데이터가 유효한지 검사
             user = serializer.save()  # 데이터가 유효하면 사용자 생성 및 저장
-            return Response({"message": "회원가입이 성공적으로 완료되었습니다.", "user_id": user.id}, status=status.HTTP_201_CREATED) # 성공 응답 반환
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # 유효하지 않은 경우 에러 메시지 반환
-
+            return Response({"message": "회원가입이 성공적으로 완료되었습니다.", "user_id": user.id},
+                            status=status.HTTP_201_CREATED)  # 성공 응답 반환
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  # 유효하지 않은 경우 에러 메시지 반환
 
     # 회원 탈퇴
     # Endpoint :  `/api/accounts`
@@ -61,7 +63,6 @@ class LoginAPI(APIView):
     # 구현 : 성공적인 로그인 시 토큰을 발급하고, 실패 시 적절한 에러 메시지를 반환.
 
     def post(self, request):
-
         # username과 password를
         username = request.data['username']
         password = request.data['password']
@@ -100,7 +101,6 @@ class LoginAPI(APIView):
 
 
 class ProfileAPI(APIView):
-
     # 프로필 조회
     # Endpoint : /api/accounts/<str:username>
     # Method : GET
@@ -126,8 +126,21 @@ class ProfileAPI(APIView):
             return Response({"error": "권한이 없습니다."}, status=status.HTTP_403_FORBIDDEN)
 
         # 사용자 정보를 직렬화하여 반환
-        serializer = UserRegistrationSerializer(user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # serializer = UserRegistrationSerializer(user)
+        # return Response(serializer.data, status=status.HTTP_200_OK)
+
+        # 팔로잉 시스템 사용자 간의 **ManyToMany** 관계를 통한 **팔로잉** 기능.
+        data = {
+            "username": user.username,
+            "email": user.email,
+            "nickname": user.nickname,
+            "bio": user.bio,
+            "follower_count": user.follower_count,
+            "following_count": user.following_count
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
 
     # 본인 정보 수정
     # Endpoint: `/api/accounts/<str:username>`
@@ -151,7 +164,6 @@ class ProfileAPI(APIView):
         if 'email' in data and User.objects.filter(email=data['email']).exclude(username=username).exists():
             raise ValidationError({"email": "이미 사용 중인 이메일입니다."})
 
-
         # 시리얼라이저를 통해 데이터 검증 및 업데이트
         serializer = UserRegistrationSerializer(user, data=data, partial=True)
         if serializer.is_valid():
@@ -160,10 +172,7 @@ class ProfileAPI(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 class LogoutAPI(APIView):
-
     # 로그아웃
     # Endpoint: /api/accounts/logout
     # Method: POST
@@ -172,9 +181,8 @@ class LogoutAPI(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-
-        #POST 메소드를 사용하여 로그아웃을 수행합니다.
-        #클라이언트 측에서 저장된 토큰을 쿠키에서 삭제합니다.
+        # POST 메소드를 사용하여 로그아웃을 수행합니다.
+        # 클라이언트 측에서 저장된 토큰을 쿠키에서 삭제합니다.
 
         response = Response({"message": "로그아웃 되었습니다."}, status=status.HTTP_200_OK)
         response.delete_cookie('access_token')  # 접근 토큰 삭제
@@ -203,12 +211,31 @@ class ChangePasswordAPI(APIView):
         if current_password == new_password:
             return Response({"error": "기존 패스워드와 새로운 패스워드는 달라야 합니다."}, status=status.HTTP_400_BAD_REQUEST)
 
-
         try:
             # 패스워드 업데이트
             user.set_password(new_password)
-            user.full_clean() # 추가적인 검증이 필요할 경우 사용
+            user.full_clean()  # 추가적인 검증이 필요할 경우 사용
             user.save()  # 패스워드 저장과 사용자 업데이트
             return Response({"message": "패스워드가 성공적으로 변경되었습니다."}, status=status.HTTP_200_OK)
         except ValidationError as e:
             return Response({"error": e.messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# 팔로잉 시스템
+# 사용자 간의 ManyToMany 관계를 통한 팔로잉 기능.
+class FollowAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, username):
+        user_to_follow = get_object_or_404(User, username=username)
+        current_user = request.user
+
+        if user_to_follow == current_user:
+            return Response({"error": "자기 자신을 팔로우할 수 없습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if current_user.following.filter(username=username).exists():
+            current_user.following.remove(user_to_follow)
+            return Response({"message": "언팔로우되었습니다."}, status=status.HTTP_200_OK)
+        else:
+            current_user.following.add(user_to_follow)
+            return Response({"message": "팔로우되었습니다."}, status=status.HTTP_200_OK)
