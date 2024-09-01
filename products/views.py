@@ -8,20 +8,22 @@ from .models import Products
 from .serializers import ProductSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
 
 
 class ProductPagination(PageNumberPagination):
     page_size = 10
 
-class ProductLCAPI(ListCreateAPIView):
 
+class ProductLCAPI(ListCreateAPIView):
     # 상품을 조회
     queryset = Products.objects.all().order_by('-created_at')
     serializer_class = ProductSerializer
     pagination_class = ProductPagination
 
     def get_permissions(self):
-        #GET 요청은 인증 X, POST 요청 인증 O.
+        # GET 요청은 인증 X, POST 요청 인증 O.
         if self.request.method in ['POST']:
             return [IsAuthenticated()]
         return [AllowAny()]
@@ -57,20 +59,35 @@ class ProductUDAPI(UpdateAPIView, DestroyAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
-        #객체를 검색하고 수정 및 삭제 권한을 검증
-        #권한이 없는 경우 예외를 발생
+        # 객체를 검색하고 수정 및 삭제 권한을 검증
+        # 권한이 없는 경우 예외를 발생
         product = super().get_object()
         if product.author != self.request.user:
             raise PermissionDenied("수정 및 삭제 권한이 없습니다.")
         return product
 
     def perform_update(self, serializer):
-        #입력된 정보로 기존 상품 정보를 업데이트합니다.
+        # 입력된 정보로 기존 상품 정보를 업데이트합니다.
         serializer.save()
 
     def destroy(self, request, *args, **kwargs):
-
-        #상품을 삭제하고, 성공 메시지를 포함한 응답을 반환합니다.
+        # 상품을 삭제하고, 성공 메시지를 포함한 응답을 반환합니다.
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({"message": "상품이 성공적으로 삭제되었습니다."}, status=status.HTTP_204_NO_CONTENT)
+
+
+# 게시글 좋아요 기능
+class ProductLikeAPI(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, product_id):
+        product = get_object_or_404(Products, id=product_id)
+        user = request.user
+
+        if user in product.likes.all():
+            product.likes.remove(user)
+            return Response({"message": "좋아요가 취소되었습니다.", "like_count": product.like_count}, status=status.HTTP_200_OK)
+        else:
+            product.likes.add(user)
+            return Response({"message": "좋아요가 추가되었습니다.", "like_count": product.like_count}, status=status.HTTP_200_OK)
