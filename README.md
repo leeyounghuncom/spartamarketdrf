@@ -5,5 +5,11 @@
 <br>
 개발 기간<br>
 2024.08.30. ~ 2024.09.02.<br>
+<br>
+개발 환경<br>
+Python : Django DRF<br>
+DB : SQlite<br>
+<br>
+ERD<br>
 
 
