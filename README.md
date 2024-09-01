@@ -11,5 +11,5 @@ Python : Django DRF<br>
 DB : SQlite<br>
 <br>
 ERD<br>
-![image]https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/erd.png?raw=true
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/erd.png?raw=true)
 
