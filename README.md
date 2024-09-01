@@ -35,12 +35,11 @@
 **게시글 좋아요 기능**<br>
 **태그 기능**<br>
 <br>
-# **설치 및 실행 방법**<br>
-  
-  pip install -r requirements.txt 실행
-  .env 확인
-  python manage.py migrate
-  python manage.py runserver
+# **설치 및 실행 방법**<br>  
+pip install -r requirements.txt 실행
+.env 확인
+python manage.py migrate
+python manage.py runserver
 
 
 
