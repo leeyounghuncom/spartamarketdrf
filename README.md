@@ -13,6 +13,12 @@
 # **ERD**<br>
 ![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/erd.png?raw=true)
 <br>
+# **설치 및 실행 방법**<br>  
+  pip install -r requirements.txt 실행
+  .env 확인
+  python manage.py migrate
+  python manage.py runserver
+<br>
 # **기능 상세**<br>
 **회원가입**<br>
 **로그인**<br>
@@ -34,12 +40,7 @@
 **팔로잉 시스템**<br>
 **게시글 좋아요 기능**<br>
 **태그 기능**<br>
-<br>
-# **설치 및 실행 방법**<br>  
-pip install -r requirements.txt 실행
-.env 확인
-python manage.py migrate
-python manage.py runserver
+
 
 
 
