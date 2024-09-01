@@ -38,6 +38,7 @@ class ProductLCAPI(ListCreateAPIView):
         title = self.request.query_params.get('title', None)
         author_username = self.request.query_params.get('author_username', None)
         content = self.request.query_params.get('content', None)
+        order_by_likes = self.request.query_params.get('order_by_likes', None)  #라이크 추가
 
         if title:
             queryset = queryset.filter(title__icontains=title)
@@ -45,6 +46,10 @@ class ProductLCAPI(ListCreateAPIView):
             queryset = queryset.filter(author__username__icontains=author_username)
         if content:
             queryset = queryset.filter(content__icontains=content)
+
+        #라이크 기능 빠짐
+        if order_by_likes:
+            queryset = queryset.order_by('-like_count')  # 라이크 추가
 
         return queryset
 
