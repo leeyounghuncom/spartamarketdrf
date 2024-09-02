@@ -46,3 +46,6 @@
 # 기능 상세
 일일이 캡쳐 보기 불편해서 한장으로 하였습니다.<br>
 ![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EC%8A%A4%ED%81%AC%EB%A6%B0%EC%83%B7%202024-09-02%2014-00-47.png?raw=true)
+<p>&nbsp;</p>
+
+TIL : https://leeyounghun.com/janggyo-simhwa-teureobeul-syuting/
