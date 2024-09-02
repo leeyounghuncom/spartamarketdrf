@@ -45,27 +45,35 @@
 
 # 기능 상세
 
-
 **회원가입**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.png?raw=true)
 **로그인**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EB%A1%9C%EA%B7%B8%EC%9D%B8.png?raw=true)
 **프로필 조회**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%A1%B0%ED%9A%8C.png?raw=true)
 **상품 등록**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EB%A6%AC%EC%8A%A4%ED%8A%B8_%EC%B6%94%EA%B0%80(%EC%B6%94%EA%B0%80).png?raw=true)
 **상품 목록 조회**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EB%A6%AC%EC%8A%A4%ED%8A%B8_%EC%B6%94%EA%B0%80(%EB%A6%AC%EC%8A%A4%ED%8A%B8).png?raw=true)
 **상품 수정**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EC%88%98%EC%A0%95_%EC%82%AD%EC%A0%9C(%EC%88%98%EC%A0%95).png?raw=true)
 **상품 삭제**<br>
-**상품 등록**<br>
-**상품 목록 조회**<br>
-**상품 수정**<br>
-**상품 삭제**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EC%88%98%EC%A0%95_%EC%82%AD%EC%A0%9C(%EC%82%AD%EC%A0%9C).png?raw=true)
 **로그아웃**<br>
 **본인 정보 수정**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8.png?raw=true)
 **패스워드 변경**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%8C%A8%EC%8A%A4%EC%9B%8C%EB%93%9C%EB%B3%80%EA%B2%BD.png?raw=true)
 **회원 탈퇴**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%94%84%EB%A1%9C%ED%95%84%20%EC%A1%B0%ED%9A%8C.png?raw=true)
 **페이지네이션 및 필터링(검색기능)**<br>
 **카테고리 기능(admin page 활용)**<br>
 **팔로잉 시스템**<br>
-**게시글 좋아요 기능**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%83%9C%EA%B7%B8.png?raw=true)
+**게시글 좋아요 기능**
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EB%9D%BC%EC%9D%B4%ED%81%AC.png?raw=true)
 **태그 기능**<br>
+![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%83%9C%EA%B7%B8.png?raw=true)
 
 
 
