@@ -22,6 +22,20 @@
 # ** RESTful API 명세서 **
 
 
+# **Custom User 이슈
+* get_user_model() 커스텀 유저 모델과 유저 시리얼라이져 사용
+* 패스워드 그대로 노출 암호화 처리
+
+# ** ORM 이슈 **
+* DB에서 해당 값을 못 찾을경우 get_object_or_404() 처리
+
+# ** Permission 이슈 **
+* 장고에서 제공하는 permission인 IsAuthenticated, AllowAny 등 있지만 AllowAny보다는 안전한 IsAuthenticatedOrReadOnly이 권장 찾음
+* 추후에 비즈니스 상황에 따라 다양한 permission 유형이 필요함을 느껴 Permission custumize 방법도 공부할 필요가 있음
+
+
+
+
 <br>
 # **기능 상세**<br>
 **회원가입**<br>
