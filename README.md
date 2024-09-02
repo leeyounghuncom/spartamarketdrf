@@ -19,7 +19,7 @@
 * python manage.py migrate
 * python manage.py runserver
 
-# ** RESTful API 명세서 **
+# RESTful API 명세서
 명칭 | Endpoint | Method | status
 |------|---|---|---|
 회원가입, 회원탈퇴 | api/accounts/ | POST, DELETE | 201_CREATED, 400_BAD_REQUEST,204_NO_CONTENT
@@ -32,26 +32,20 @@
 수정, 삭제 | api/products/<int:pk>/ | PUT, DELETE | 204_NO_CONTENT
 좋아요 | api/products/<int:product_id>/like/ | POST |  200_OK
 
-
-
-    
-
-# **Custom User 이슈
+# Custom User 이슈
 * get_user_model() 커스텀 유저 모델과 유저 시리얼라이져 사용
 * 패스워드 그대로 노출 암호화 처리
 
-# ** ORM 이슈 **
+# ORM 이슈
 * DB에서 해당 값을 못 찾을경우 get_object_or_404() 처리
 
-# ** Permission 이슈 **
+# Permission 이슈
 * 장고에서 제공하는 permission인 IsAuthenticated, AllowAny 등 있지만 AllowAny보다는 안전한 IsAuthenticatedOrReadOnly이 권장 찾음
 * 추후에 비즈니스 상황에 따라 다양한 permission 유형이 필요함을 느껴 Permission custumize 방법도 공부할 필요가 있음
 
+# 기능 상세
 
 
-
-<br>
-# **기능 상세**<br>
 **회원가입**<br>
 **로그인**<br>
 **프로필 조회**<br>
