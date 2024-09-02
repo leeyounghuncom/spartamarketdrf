@@ -70,7 +70,7 @@
 **카테고리 기능(admin page 활용)**<br>
 **팔로잉 시스템**<br>
 ![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%83%9C%EA%B7%B8.png?raw=true)<br>
-**게시글 좋아요 기능**
+**게시글 좋아요 기능**<br>
 ![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%EB%9D%BC%EC%9D%B4%ED%81%AC.png?raw=true)<br>
 **태그 기능**<br>
 ![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/%ED%83%9C%EA%B7%B8.png?raw=true)<br>
