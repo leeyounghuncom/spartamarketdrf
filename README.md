@@ -14,10 +14,10 @@
 ![image](https://github.com/leeyounghuncom/spartamarketdrf/blob/main/readme/erd.png?raw=true)
 <br>
 # **설치 및 실행 방법**
-*pip install -r requirements.txt
-*.env 확인
-*python manage.py migrate
-*python manage.py runserver
+* pip install -r requirements.txt
+* .env 확인
+* python manage.py migrate
+* python manage.py runserver
 
 <br>
 # **기능 상세**<br>
