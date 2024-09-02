@@ -21,7 +21,7 @@
 
 # ** RESTful API 명세서 **
 명칭 | Endpoint | Method | status
-|------|---|---|
+|------|---|---|---|
 회원가입, 회원탈퇴 | api/accounts/ | POST, DELETE | 201_CREATED, 400_BAD_REQUEST,204_NO_CONTENT
 로그인 | api/accounts/login/ | POST | 400_BAD_REQUEST,HTTP_200_OK
 로그아웃 | api/accounts/logout/ |  POST | 200_OK
