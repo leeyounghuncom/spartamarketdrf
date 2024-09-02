@@ -19,6 +19,9 @@
 * python manage.py migrate
 * python manage.py runserver
 
+# ** RESTful API 명세서 **
+
+
 <br>
 # **기능 상세**<br>
 **회원가입**<br>
